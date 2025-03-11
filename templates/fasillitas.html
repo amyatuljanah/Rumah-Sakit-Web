@@ -1,0 +1,200 @@
+<!-- filepath: c:\Users\Thinkpad13\Documents\rumah sakit\ujianprojek\fasilitas\templates\fasillitas.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasilitas Rumah Sakit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FAF3E0;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            margin-bottom: 20px;
+            margin-top: 20px;
+            text-align: center;
+            background-color: #3faa4a;
+            padding: 10px;
+            max-width: 80%;
+            margin: auto;
+        }
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-height: 300px;
+        }
+        h1 {
+            color: #000000;
+        }
+        h2 {
+            color: #3faa4a;
+        }
+        h3 {
+            color: #3faa4a;
+            margin-left: 60px; 
+         
+        }
+        h4 {
+            color: #000000;
+            text-align: center;
+            margin-top: 50px;
+        }
+        p, ul {
+            line-height: 1.6;
+            margin-left: 60px; 
+            
+        }
+        .facility-images {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .facility-images img {
+            width: 30%;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .centered-image {
+            margin-left: 50px;
+        }
+        table {
+  width: 100%; /* Lebar tabel 100% dari container */
+  border-collapse: collapse; /* Menggabungkan border sel */
+  margin-bottom: 20px; /* Jarak bawah tabel */
+}
+
+th, td {
+  border: 1px solid #ddd; /* Border sel */
+  padding: 8px; /* Ruang di dalam sel */
+  text-align: left; /* Teks rata kiri */
+}
+
+th {
+  background-color: #f2f2f2; /* Warna latar belakang header */
+  font-weight: bold; /* Teks header tebal */
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Warna latar belakang baris genap (opsional) */
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <img src="{% static 'logo.jpg' %}" alt="Logo Rumah Sakit" class="centered-image" style="width: 400px; height: auto;">
+        <nav>
+            <a href="{% url 'profil' %}">Profil</a> | 
+            <a href="#">Poliklinik</a> | 
+            <a href="{% url 'fasilitas' %}">Fasilitas</a> | 
+            <a href="#">Lokasi</a> | 
+            <a href="#">Kontak</a>
+        </nav>
+        <h4>Fasilitas Rumah Sakit Sehat Sejahtera</h4>
+        <h3><i>Fasilitas</i></h3>
+        {% if fasilitas %}
+            <ul>
+                {% for fasilitas_item in fasilitas %}
+                    <li>{{ fasilitas_item }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Tidak ada fasilitas tersedia.</p>
+        {% endif %}
+
+        <h3><i>Keunggulan</i></h3>
+        {% if keunggulan %}
+            <ul>
+                {% for keunggulan_item in keunggulan %}
+                    <li>{{ keunggulan_item }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Tidak ada keunggulan tersedia.</p>
+        {% endif %}
+
+        <h3><i>Kamar</i></h3>
+<table>
+  <thead>
+    <tr>
+      <th>Fasilitas</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for kamar in kamar_rumah_sakit %}
+    <tr>
+      <td>
+        <h3 style="text-align: center;">{{ kamar.nama }} ({{ kamar.kelas }})</h3>
+        {% if kamar.gambar %}
+        <img src="{{ kamar.gambar.url }}" alt="{{ kamar.nama }}" width="250"
+          style="display: block; margin: 0 auto; margin-bottom: 10px;">
+        {% else %}
+        <p>Tidak ada gambar tersedia</p>
+        {% endif %}
+        <ul>
+          <!-- Ganti dengan detail kamar sesuai kelas -->
+          {% if kamar.kelas|stringformat:'s' == "Kelas 1" %}
+          <li>1 tempat tidur pasien dengan kenyamanan premium (1 Kamar berisi 2 Pasien).</li>
+          <li>Ruangan ber-AC.</li>
+          <li>Kamar mandi dengan pemanas air.</li>
+          <li>TV LED 32 inci.</li>
+          <li>Lemari pakaian kecil.</li>
+          <li>Makanan sehat 3 kali sehari (sesuai rekomendasi gizi).</li>
+          {% elif kamar.kelas|stringformat:'s' == "Executive" %}
+          <li>1 tempat tidur pasien elektrik dengan pengaturan otomatis (1 Kamar 1 pasien).</li>
+          <li>Ruangan ber-AC.</li>
+          <li>Kamar mandi dengan pemanas air.</li>
+          <li>TV LED 42 inci dengan saluran kabel.</li>
+          <li>Sofa untuk pendamping.</li>
+          <li>Wi-Fi gratis.</li>
+          <li>Makanan bisa disesuaikan dengan preferensi.</li>
+          {% elif kamar.kelas|stringformat:'s' == "VIP" %}
+          <li>Kamar luas dengan desain mewah.</li>
+          <li>1 tempat tidur pasien elektrik dengan pengaturan otomatis (1 Kamar 1 pasien).</li>
+          <li>Ruangan ber-AC dengan tata interior modern.</li>
+          <li>Kamar mandi dengan pemanas air.</li>
+          <li>TV LED 50 inci dengan saluran premium.</li>
+          <li>Sofa bed dan kursi tambahan untuk keluarga/pengunjung.</li>
+          <li>Lemari pakaian besar dan meja kerja eksklusif.</li>
+          <li>Mini kulkas, pantry, dan fasilitas pembuat teh/kopi.</li>
+          <li>Makanan premium dengan pilihan menu harian.</li>
+          <li>Parkir khusus untuk pasien VIP.</li>
+          {% else %}
+          <li>Detail kamar tidak tersedia.</li>
+          {% endif %}
+        </ul>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+        
+        
+        
+
+        
+
+    </div>
+</body>
+</html>

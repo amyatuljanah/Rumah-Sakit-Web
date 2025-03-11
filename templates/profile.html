@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Rumah Sakit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FAF3E0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav {
+            margin-bottom: 200px;
+            margin-top: 20px;
+            text-align: center;
+            background-color: #3faa4a;
+            padding: 10px;
+            max-width: 80%;
+            margin: auto;
+        }
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            max-width: 700px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            color: rgb(49, 162, 79);
+        }
+        .layanan-item h3 {
+            color: rgb(0, 0, 0); /* Change this to the desired color */
+        }
+        h4 {
+            color: rgb(49, 162, 79);
+            text-align: center;
+            margin-top: 50px;
+        }
+        .italicized {
+            font-style: italic;
+        }
+        .profile-title {
+           
+            color: rgb(0, 0, 0);
+            text-align: center;
+            margin-top: 50px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .centered-text {
+            text-align: center;
+        }
+        ol {
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .layanan-list {
+            margin-top: 20px;
+        }
+        .layanan-item {
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .centered-image {
+            display: block;
+            margin-left: 50px;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <img src="{% static 'logo.jpg' %}" alt="Logo Rumah Sakit" class="centered-image" style="width: 400px; height: auto;">
+        <nav>
+            <a href="{% url 'profil' %}">Profil</a> | 
+            <a href="#">Poliklinik</a> | 
+            <a href="{% url 'fasilitas' %}">Fasilitas</a> | 
+            <a href="#">Lokasi</a> | 
+            <a href="#">Kontak</a>
+        </nav>
+        
+        <h4 class="profile-title">Profil Rumah Sakit Sehat Sejahtera</h4>
+        <h3><i>Visi</i></h3>
+        <p>{{ visi }}</p>
+        <h3><i>Misi</i></h3>
+        <ol>
+            {% for item in misi %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ol>
+
+        <h3>Layanan Unggulan Manual</h3>
+        <div class="layanan-list">
+            {% for layanan in layanan_unggulan_manual %}
+            <div class="layanan-item">
+                <h3 class="layanan-title">{{ layanan.nama }}</h3>
+                {% if layanan.deskripsi %}
+                <ul>
+                    {% for deskripsi in layanan.deskripsi %}
+                    <li>{{ deskripsi }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Tidak ada deskripsi.</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <h4><i>"Kesehatan Anda, Prioritas Kami."</i></h4>
+        <p class="centered-text"><i>Dengan dedikasi 10 tahun dalam memberikan layanan kesehatan, Rumah Sakit Sejahtera terus berkomitmen untuk menjadi pilihan utama dalam pelayanan spesialis jantung dan saraf.</i></p>
+    </div>
+</body>
+</html>
